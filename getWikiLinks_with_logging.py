@@ -1,9 +1,6 @@
 # getWikiLinks_with_exceptionHandling.py
 """
-Get Wiki link and save it in the file. Take the next random link from 
-the site, check if the link has not been downloaded once, save it and 
-get Wiki links from the new site. Take the next random link ... . 
-The program works in the endless loop.
+Simple crawler with the exceptions handling and the logging.
 """
 from urllib.request import urlopen
 from urllib.error import HTTPError
@@ -45,8 +42,8 @@ def getTitle(articleUrl):
 def getLinks(articleUrl):
     """
     Take the end of url from Wikipedia, create the full url adress of 
-    the site of Wikipedia and return all url adressess scraped from 
-    the created url that concern the Wikipedia.
+    the site of Wikipedia and return all end of url adressess scraped 
+    from the created url that concern Wikipedia.
     """
     html = urlopen(f"http://pl.wikipedia.org{articleUrl}")
     bsObj = BeautifulSoup(html, "html.parser")
@@ -66,7 +63,7 @@ while len(links) > 0:
     # Handling of the exception HTTPError
     if checkofurl == None:
         print(f"Url: {newArticle} could not be found.")
-        with open("getWikiLinks_with_exceptionHandling.txt", "a") as f:
+        with open("getWikiLinks_with_logging.txt", "a") as f:
             f.write(f"Title: {newArticle} could not be found.")
             f.write("\n")
         links = getLinks(newArticle)
