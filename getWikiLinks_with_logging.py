@@ -63,18 +63,18 @@ def getTitle(articleUrl):
         html = urlopen(url)
     # Check for the exception that there is no website.
     except HTTPError as e:
-        print(e)
         return None
     # Check for the exception that the server is down.
     except URLError as e:
-        print(e)
         return "Server not found"
     try:
         bsObj = BeautifulSoup(html, "html.parser")
-        title = bsObj.body.h1
+        title = bsObj.h1.get_text()
+        title1 = bsObj.findAll("p", [0])
+#        title2 = bsObj.find(id="ca-edit").find("span").find("a").attrs['href']
     # Check for the exception that the site has no title.
     except AttributeError as e:
-        return None
+        return "Something is missing in this page"
     else:
         return articleUrl
 
@@ -87,7 +87,7 @@ def getLinks(articleUrl):
     html = urlopen(f"http://pl.wikipedia.org{articleUrl}")
     bsObj = BeautifulSoup(html, "html.parser")
     return bsObj.find("div", {"id":"bodyContent"}).findAll("a", \
-        href=re.compile("^(/wiki/)((?!:).)*$"))
+        href=re.compile("^(/wiki/)"))
 
 random.seed(datetime.datetime.now())
 pages = set()
@@ -113,13 +113,31 @@ while len(links) > 0:
             f.write(f"For the url: {newArticle} server not found.")
             f.write("\n")
         links = getLinks(newArticle)
+    # Handling of the exception AttributeError
+    elif checkofurl == "Something is missing in this page":
+        print(f"For the url: {newArticle} something is missing in the page.")
+        with open("getWikiLinks_with_logging.txt", "a") as f:
+            f.write(f"For the url: {newArticle} something is missing") 
+            f.write(" in the page.")
+            f.write("\n")
+        links = getLinks(newArticle)
     # Saving and printing of the end of wikipedia url page in txt file.
     else:
         # the checking if the link has not been downloaded once.
         if newArticle not in pages:
+            html = urlopen(f"http://pl.wikipedia.org{checkofurl}")
+            bsObj = BeautifulSoup(html, "html.parser")
             print(checkofurl)
+            print(bsObj.h1.get_text())
+            print(bsObj.findAll("p", [0]))
+#            print(bsObj.find(id="ca-edit").find("span").find("a").attrs['href'])
             with open("getWikiLinks_with_logging.txt", "a") as f:
-                f.write(checkofurl)
+                f.write(checkofurl + "\n")
+                f.write(bsObj.h1.get_text() + "\n")
+#                f.write(bsObj.find(id="mw-content-text").findAll("p", [0]) + \
+#                    "\n")
+#                f.write(bsObj.find(id="ca-edit").find("span").find("a").attrs\
+#                    ['href'] + "\n")
                 f.write("\n")
             newArticle = checkofurl
             pages.add(newArticle)
