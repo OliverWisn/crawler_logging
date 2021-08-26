@@ -11,8 +11,10 @@ python 3.9 - rest in requirements.txt .
 I make this script so that the master branch has always the functioning 
 code. To run the script you must run the file 
 "getWikiLinks_with_logging.py". The script works in the endless loop 
-(in fact in python the loop will hang after 1000 cycles), so you have 
-to stop it manually.
+(in fact the script can hang after 1000 cycles due to recursion in 
+some cases), so you have to stop it manually. The script is written in 
+utf-8 so the end of url that is stored in the script must be written 
+in utf-8.
 
 ## Script Summary:
 The script is taking the end of url from Wikipedia (the end of url is 
