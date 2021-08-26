@@ -13,8 +13,12 @@ code. To run the script you must run the file
 "getWikiLinks_with_logging.py". The script works in the endless loop 
 (in fact the script can hang after 1000 cycles due to recursion in 
 some cases), so you have to stop it manually. The script is written in 
-UTF-8 so the end of url that is stored in the script must be written 
-in UTF-8.
+UTF-8, so the end of url that is stored in the script must be written 
+in UTF-8. If you use the script for a long time and use wikipedia 
+resources in this way, think about donation to wikipedia. I normally 
+use the logging snippet for internal use only in the debuging and you 
+won't see it in the finished client program. I run the individual lines 
+in the logging as needed.
 
 ## Script Summary:
 The script is taking the end of url from Wikipedia (the end of url is 
