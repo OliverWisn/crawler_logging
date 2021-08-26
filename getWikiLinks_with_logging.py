@@ -109,7 +109,7 @@ while len(links) > 0:
     # Handling of the exception URLError
     elif checkofurl == "Server not found":
         print(f"For the url: {newArticle} server not found.")
-        with open("getWikiLinks_with_exceptionHandling.txt", "a") as f:
+        with open("getWikiLinks_with_logging.txt", "a") as f:
             f.write(f"For the url: {newArticle} server not found.")
             f.write("\n")
         links = getLinks(newArticle)
@@ -118,7 +118,7 @@ while len(links) > 0:
         # the checking if the link has not been downloaded once.
         if newArticle not in pages:
             print(checkofurl)
-            with open("getWikiLinks_with_exceptionHandling.txt", "a") as f:
+            with open("getWikiLinks_with_logging.txt", "a") as f:
                 f.write(checkofurl)
                 f.write("\n")
             newArticle = checkofurl
