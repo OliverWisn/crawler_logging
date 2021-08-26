@@ -92,7 +92,7 @@ def getLinks(articleUrl):
 random.seed(datetime.datetime.now())
 pages = set()
 # Making of the first end of url site from Wikipedia to load.
-links = getLinks("/wiki/Olgierd")
+links = getLinks("/wiki/Star_Trek")
 # The loop for the handling of the exceptions, for the saving of them 
 # in the txt file and for the saving the endings of wikipedia url pages
 # in the txt file.
