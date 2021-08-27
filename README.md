@@ -31,7 +31,9 @@ downloaded once, saves it and gets the end of Wiki links from this new
 site. All operations are additionally shown in the shell, except for 
 one. If the url has been checked once, it will not be saved in the txt 
 file (the end of url), but the appropriate information will be shown 
-in the shell thanks to the operation of the logger.
+in the shell thanks to the operation of the logger. In addition, 
+the logger saves all its occurrences in the form of the information 
+stored in the file events.log .
 
 ## Version:
 The basic version of the code has tag 1.0.
