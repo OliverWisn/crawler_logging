@@ -70,7 +70,8 @@ def getTitle(articleUrl):
     try:
         bsObj = BeautifulSoup(html, "html.parser")
         title = bsObj.h1.get_text()
-        title1 = bsObj.findAll("p", [0])
+        title1 = bsObj.find(id="mw-content-text").find("p")
+#        title1 = bsObj.find(id="mw-content-text").findAll("p")[0]
 #        title2 = bsObj.find(id="ca-edit").find("span").find("a").attrs['href']
     # Check for the exception that the site has no title.
     except AttributeError as e:
@@ -87,12 +88,12 @@ def getLinks(articleUrl):
     html = urlopen(f"http://pl.wikipedia.org{articleUrl}")
     bsObj = BeautifulSoup(html, "html.parser")
     return bsObj.find("div", {"id":"bodyContent"}).findAll("a", \
-        href=re.compile("^(/wiki/)"))
+        href=re.compile("^(/wiki/)((?!:).)*$"))
 
 random.seed(datetime.datetime.now())
 pages = set()
 # Making of the first end of url site from Wikipedia to load.
-links = getLinks("/wiki/Star_Trek")
+links = getLinks("")
 # The loop for the handling of the exceptions, for the saving of them 
 # in the txt file and for the saving the endings of wikipedia url pages
 # in the txt file.
@@ -102,21 +103,21 @@ while len(links) > 0:
     # Handling of the exception HTTPError
     if checkofurl == None:
         print(f"Url: {newArticle} could not be found.")
-        with open("getWikiLinks_with_logging.txt", "a") as f:
+        with open("getWikiLinks_with_logging.txt", "a", encoding="utf-8") as f:
             f.write(f"Title: {newArticle} could not be found.")
             f.write("\n")
         links = getLinks(newArticle)
     # Handling of the exception URLError
     elif checkofurl == "Server not found":
-        print(f"For the url: {newArticle} server not found.")
-        with open("getWikiLinks_with_logging.txt", "a") as f:
+        print(f"For the url: {anewArticle} server not found.")
+        with open("getWikiLinks_with_logging.txt", "a", encoding="utf-8") as f:
             f.write(f"For the url: {newArticle} server not found.")
             f.write("\n")
         links = getLinks(newArticle)
     # Handling of the exception AttributeError
     elif checkofurl == "Something is missing in this page":
         print(f"For the url: {newArticle} something is missing in the page.")
-        with open("getWikiLinks_with_logging.txt", "a") as f:
+        with open("getWikiLinks_with_logging.txt", "a", encoding="utf-8") as f:
             f.write(f"For the url: {newArticle} something is missing") 
             f.write(" in the page.")
             f.write("\n")
@@ -129,11 +130,15 @@ while len(links) > 0:
             bsObj = BeautifulSoup(html, "html.parser")
             print(checkofurl)
             print(bsObj.h1.get_text())
-            print(bsObj.findAll("p", [0]))
+            print(bsObj.find(id="mw-content-text").find("p"))
+#            print(bsObj.find(id="mw-content-text").findAll("p")[0])
 #            print(bsObj.find(id="ca-edit").find("span").find("a").attrs['href'])
-            with open("getWikiLinks_with_logging.txt", "a") as f:
+            print("\n")
+            with open("getWikiLinks_with_logging.txt", "a",\
+             encoding="utf-8") as f:
                 f.write(checkofurl + "\n")
                 f.write(bsObj.h1.get_text() + "\n")
+                f.write((str(bsObj.find(id="mw-content-text").find("p"))) + "\n")
 #                f.write(bsObj.find(id="mw-content-text").findAll("p", [0]) + \
 #                    "\n")
 #                f.write(bsObj.find(id="ca-edit").find("span").find("a").attrs\
