@@ -70,8 +70,7 @@ def getTitle(articleUrl):
     try:
         bsObj = BeautifulSoup(html, "html.parser")
         title = bsObj.h1.get_text()
-        title1 = bsObj.find(id="mw-content-text").find("p")
-#        title1 = bsObj.find(id="mw-content-text").findAll("p")[0]
+        beginning_body = bsObj.find(id="mw-content-text").find("p").get_text()
 #        title2 = bsObj.find(id="ca-edit").find("span").find("a").attrs['href']
     # Check for the exception that the site has no title.
     except AttributeError as e:
@@ -103,24 +102,27 @@ while len(links) > 0:
     # Handling of the exception HTTPError
     if checkofurl == None:
         print(f"Url: {newArticle} could not be found.")
+        print("----------------------------------------")
         with open("getWikiLinks_with_logging.txt", "a", encoding="utf-8") as f:
             f.write(f"Title: {newArticle} could not be found.")
-            f.write("\n")
+            f.write("----------------------------------------"+"\n")
         links = getLinks(newArticle)
     # Handling of the exception URLError
     elif checkofurl == "Server not found":
         print(f"For the url: {anewArticle} server not found.")
+        print("----------------------------------------")
         with open("getWikiLinks_with_logging.txt", "a", encoding="utf-8") as f:
             f.write(f"For the url: {newArticle} server not found.")
-            f.write("\n")
+            f.write("----------------------------------------"+"\n")
         links = getLinks(newArticle)
     # Handling of the exception AttributeError
     elif checkofurl == "Something is missing in this page":
         print(f"For the url: {newArticle} something is missing in the page.")
+        print("----------------------------------------")
         with open("getWikiLinks_with_logging.txt", "a", encoding="utf-8") as f:
             f.write(f"For the url: {newArticle} something is missing") 
             f.write(" in the page.")
-            f.write("\n")
+            f.write("----------------------------------------"+"\n")
         links = getLinks(newArticle)
     # Saving and printing of the end of wikipedia url page in txt file.
     else:
@@ -130,20 +132,18 @@ while len(links) > 0:
             bsObj = BeautifulSoup(html, "html.parser")
             print(checkofurl)
             print(bsObj.h1.get_text())
-            print(bsObj.find(id="mw-content-text").find("p"))
-#            print(bsObj.find(id="mw-content-text").findAll("p")[0])
+            print(bsObj.find(id="mw-content-text").find("p").get_text())
 #            print(bsObj.find(id="ca-edit").find("span").find("a").attrs['href'])
-            print("\n")
+            print("----------------------------------------")
             with open("getWikiLinks_with_logging.txt", "a",\
              encoding="utf-8") as f:
-                f.write(checkofurl + "\n")
-                f.write(bsObj.h1.get_text() + "\n")
-                f.write((str(bsObj.find(id="mw-content-text").find("p"))) + "\n")
-#                f.write(bsObj.find(id="mw-content-text").findAll("p", [0]) + \
-#                    "\n")
+                f.write(checkofurl+"\n")
+                f.write(bsObj.h1.get_text()+"\n")
+                f.write((bsObj.find(id="mw-content-text").find("p").get_text())\
+                    +"\n")
 #                f.write(bsObj.find(id="ca-edit").find("span").find("a").attrs\
 #                    ['href'] + "\n")
-                f.write("\n")
+                f.write("----------------------------------------"+"\n")
             newArticle = checkofurl
             pages.add(newArticle)
             links = getLinks(newArticle)
