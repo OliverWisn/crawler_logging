@@ -58,21 +58,22 @@ def getTitle(articleUrl):
     the site of Wikipedia and check the full url's for exceptions. 
     After no exceptions will occur return the end of url.
     """
-    url = f"http://pl.wikipedia.org{articleUrl}"
+    url = f"http://en.wikipedia.org{articleUrl}"
     try:
         html = urlopen(url)
     # Check for the exception that there is no website.
-    except HTTPError as e:
+    except HTTPError:
         return None
     # Check for the exception that the server is down.
-    except URLError as e:
+    except URLError:
         return "Server not found"
     try:
         bsObj = BeautifulSoup(html, "html.parser")
         title = bsObj.h1.get_text()
         beginning_body = bsObj.find(id="mw-content-text").find("p").get_text()
-#        title2 = bsObj.find(id="ca-edit").find("span").find("a").attrs['href']
-    # Check for the exception that the site has no title.
+        times_my_text = len(bsObj.findAll(lambda tag: tag.get_text() == \
+            "Star Trek"))
+    # Check for the exception that the attribut error occurs.
     except AttributeError as e:
         return "Something is missing in this page"
     else:
@@ -82,9 +83,9 @@ def getLinks(articleUrl):
     """
     Take the end of url from Wikipedia, create the full url adress of 
     the site of Wikipedia and return all end of url adressess scraped 
-    from the created url that concern Wikipedia.
+    from the created url that concern Wikipedia's urls.
     """
-    html = urlopen(f"http://pl.wikipedia.org{articleUrl}")
+    html = urlopen(f"http://en.wikipedia.org{articleUrl}")
     bsObj = BeautifulSoup(html, "html.parser")
     return bsObj.find("div", {"id":"bodyContent"}).findAll("a", \
         href=re.compile("^(/wiki/)((?!:).)*$"))
@@ -92,11 +93,14 @@ def getLinks(articleUrl):
 random.seed(datetime.datetime.now())
 pages = set()
 # Making of the first end of url site from Wikipedia to load.
-links = getLinks("")
-# The loop for the handling of the exceptions, for the saving of them 
-# in the txt file and for the saving the endings of wikipedia url pages
-# in the txt file.
+links = getLinks("/wiki/Star_Trek")
+# The loop for the handling of the exceptions, for the printing and 
+# the saving of them in the txt file. The loop prints and saves in 
+# the txt file: the ends of Wikipedia url's, the title of the site, 
+# the beginning of the page content and the information how many times 
+# the expression 'Star Trek' occurs.
 while len(links) > 0:
+    # Exceptions handling.
     newArticle = links[random.randint(0, len(links)-1)].attrs["href"]
     checkofurl = getTitle(newArticle)
     # Handling of the exception HTTPError
@@ -124,16 +128,21 @@ while len(links) > 0:
             f.write(" in the page.")
             f.write("----------------------------------------"+"\n")
         links = getLinks(newArticle)
-    # Saving and printing of the end of wikipedia url page in txt file.
+    # Saving and printing in txt file of: the ends of Wikipedia url's, 
+    # the title of the site, the beginning of the page content, 
+    # the information how many times the expression 'Star Trek' occurs.
     else:
         # the checking if the link has not been downloaded once.
         if newArticle not in pages:
-            html = urlopen(f"http://pl.wikipedia.org{checkofurl}")
+            html = urlopen(f"http://en.wikipedia.org{checkofurl}")
             bsObj = BeautifulSoup(html, "html.parser")
             print(checkofurl)
             print(bsObj.h1.get_text())
             print(bsObj.find(id="mw-content-text").find("p").get_text())
-#            print(bsObj.find(id="ca-edit").find("span").find("a").attrs['href'])
+            my_text_appearance = len(bsObj.findAll(lambda tag: tag.get_text()==\
+                "Star Trek"))
+            print(f"The expression 'Star Trek' on this page appears\
+                {my_text_appearance} times")
             print("----------------------------------------")
             with open("getWikiLinks_with_logging.txt", "a",\
              encoding="utf-8") as f:
@@ -141,12 +150,14 @@ while len(links) > 0:
                 f.write(bsObj.h1.get_text()+"\n")
                 f.write((bsObj.find(id="mw-content-text").find("p").get_text())\
                     +"\n")
-#                f.write(bsObj.find(id="ca-edit").find("span").find("a").attrs\
-#                    ['href'] + "\n")
+                f.write(f"The expression 'Star Trek' on this page appears\
+                    {my_text_appearance} times"+"\n")
                 f.write("----------------------------------------"+"\n")
             newArticle = checkofurl
             pages.add(newArticle)
             links = getLinks(newArticle)
+        # If the link has been downloaded once, select the next link 
+        # and save the debug message in the logger text file.
         else:
             logger.info(f"This site has already been checked: {newArticle}")
             newArticle = checkofurl
