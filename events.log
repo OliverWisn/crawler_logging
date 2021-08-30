@@ -1,0 +1,6 @@
+08/29/2021 06:45:43 PM - Mainstream   - DEBUG        - debug message
+08/29/2021 06:45:43 PM - Mainstream   - INFO         - info message
+08/29/2021 06:45:43 PM - Mainstream   - WARNING      - warn message
+08/29/2021 06:45:43 PM - Mainstream   - ERROR        - error message
+08/29/2021 06:45:43 PM - Mainstream   - CRITICAL     - critical message
+08/29/2021 06:47:04 PM - Mainstream   - INFO         - This site has already been checked: /wiki/Intel
