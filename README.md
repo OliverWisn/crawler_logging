@@ -1,16 +1,19 @@
 # Simple crawler with the exceptions handling and the logging
 
 ## Motivation:
-I make this script because I learn the web scraping. I would like to 
-walk through the Python Standard Library + beautifulsoup and logging. 
+I am a fun of Star Trek. I make this script to scrap Wikipedia to 
+find out how many times the expression 'Star Trek' will appear on 
+the selected Wikipedia random pages. I study the web scraping, so I 
+would like to walk through the Python Standard Library + 
+Beautiful Soup and Logging.
 
 ## Requirements: 
 python 3.9 - rest in requirements.txt .
 
 ## Remarks:
-I make this script so that the master branch has always the functioning 
-code. To run the script you must run the file 
-"getWikiLinks_with_logging.py". The script works in the endless loop 
+- I make this script so that the master branch has always the functioning 
+  code. 
+- To run the script you must run the file "getWikiLinks_with_logging.py". The script works in the endless loop 
 (in fact the script can hang after 1000 cycles due to recursion in 
 some cases), so you have to stop it manually. The script is written in 
 UTF-8, so the end of url that is stored in the script must be written 
