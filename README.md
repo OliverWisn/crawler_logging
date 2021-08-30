@@ -3,7 +3,7 @@
 ## Motivation:
 I am a fun of Star Trek. I made this script to scrap Wikipedia to 
 find out how many times the expression 'Star Trek' will appear on 
-the selected Wikipedia random pages.
+the selected random Wikipedia pages.
 
 ## Requirements: 
 python 3.9 - rest in requirements.txt .
@@ -31,19 +31,30 @@ python 3.9 - rest in requirements.txt .
   the learning, not for the production environment.
 
 ## Script Summary:
-The script is taking the end of url from Wikipedia (the end of url is 
-stored in the script), is printing and saving from the site in the txt file 
-getWikiLinks_with_logging.txt. , is creating the full url adress of 
-the site of Wikipedia and returns all ends of url adressess scraped 
-from the created url that concern Wikipedia. Next the script takes 
-the next random link from the site, checks if the link has not been 
-downloaded once, saves it and gets the end of Wiki links from this new 
-site. All operations are additionally shown in the shell, except for 
-one. If the url has been checked once, it will not be saved in the txt 
-file (the end of url), but the appropriate information will be shown 
-in the shell thanks to the operation of the logger. In addition, 
-the logger saves all its occurrences in the form of the information 
-stored in the file events.log .
+The script is taking the end of url of Wikipedia (the end of url is 
+stored in the script) and is creating the full url adress of the site 
+of Wikipedia. Next the script (after the scraping of the necessary 
+information from the page) is printing and saving in the txt file 
+getWikiLinks_with_logging.txt: in the first line the end of Wikipedia 
+url, in the seconod line the title of the page, in the next few lines 
+the beginning of the page body (sometimes they're blank lines/line), 
+the blank line to distinguish the body from the last line (this is 
+necessary because we don't know how many lines will have the beginning 
+of the body when the text will be wrapped). At the end the script is 
+printing and saving in the txt file: the occurs of the expression 
+'Star Trek' and in the last line the separator. After this the script 
+scrap all ends of url adressess from the created url that concern 
+Wikipedia. Next the script takes the next random link from the site, 
+checks if the link has not been downloaded once and gets the necessary 
+information from the new page. The script works in the loop. All 
+operations are saved in the txt file getWikiLinks_with_logging.txt, 
+except for one. If the url has been checked once, it will not be saved 
+in this txt file (the end of url and other informations), but 
+the appropriate information will be save and print thanks to 
+the operations of the logger. The logger saves (and print) all its 
+occurrences in the form of the information stored in the file 
+events.log . To see what it looks like, please open the file 
+getWikiLinks_with_logging.txt and the events.log file.
 
 ## Version:
 The basic version of the code has tag 1.0.
