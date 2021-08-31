@@ -74,7 +74,7 @@ def getTitle(articleUrl):
         times_my_text = len(bsObj.findAll(lambda tag: tag.get_text() == \
             "Star Trek"))
     # Check for the exception that the attribut error occurs.
-    except AttributeError as e:
+    except AttributeError:
         return "Something is missing in this page"
     else:
         return articleUrl
@@ -108,15 +108,15 @@ while len(links) > 0:
         print(f"Url: {newArticle} could not be found.")
         print("----------------------------------------")
         with open("getWikiLinks_with_logging.txt", "a", encoding="utf-8") as f:
-            f.write(f"Title: {newArticle} could not be found.")
+            f.write(f"Title: {newArticle} could not be found."+"\n")
             f.write("----------------------------------------"+"\n")
         links = getLinks(newArticle)
     # Handling of the exception URLError
     elif checkofurl == "Server not found":
-        print(f"For the url: {anewArticle} server not found.")
+        print(f"For the url: {newArticle} server not found.")
         print("----------------------------------------")
         with open("getWikiLinks_with_logging.txt", "a", encoding="utf-8") as f:
-            f.write(f"For the url: {newArticle} server not found.")
+            f.write(f"For the url: {newArticle} server not found."+"\n")
             f.write("----------------------------------------"+"\n")
         links = getLinks(newArticle)
     # Handling of the exception AttributeError
@@ -125,7 +125,7 @@ while len(links) > 0:
         print("----------------------------------------")
         with open("getWikiLinks_with_logging.txt", "a", encoding="utf-8") as f:
             f.write(f"For the url: {newArticle} something is missing") 
-            f.write(" in the page.")
+            f.write(" in the page."+"\n")
             f.write("----------------------------------------"+"\n")
         links = getLinks(newArticle)
     # Saving and printing in txt file of: the ends of Wikipedia url's, 
