@@ -37,7 +37,7 @@ stored in the script) and is creating the full url adress of the site
 of Wikipedia. Next the script (after the scraping and the processing 
 of the information from the page) is printing and saving in the txt 
 file getWikiLinks_with_logging.txt: in the first line the end of 
-the Wikipedia url, in the seconod line the title of the page, in 
+the Wikipedia url, in the second line the title of the page, in 
 the next few lines the beginning of the page body (sometimes they're 
 blank lines/line), the blank line to distinguish the body from 
 the last line (this is necessary because we don't know how many lines 
@@ -45,12 +45,12 @@ will have the beginning of the body when the text will be wrapped).
 At the end the script is printing and saving in the txt file: 
 the occurs of the expression 'Star Trek' and in the last line 
 the separator. Next the script is taking the next random link from 
-the site, is chacking if the link has not been downloaded once and is 
+the site, is checking if the link has not been downloaded once and is 
 getting the necessary information from the new page. The script works 
 in the loop. All operations are saved in the txt file 
 getWikiLinks_with_logging.txt, except for one. If the url has been 
 checked once, it will not be saved in this txt file (the end of url 
-and other informations), but the appropriate information will be save 
+and other information), but the appropriate information will be save 
 and print thanks to the operations of the logger. The logger saves and 
 prints all its occurrences in the form of the information stored in 
 the file events.log . To see what it looks like, please open the file 
