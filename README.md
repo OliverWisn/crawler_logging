@@ -16,7 +16,7 @@ python 3.9 - rest in requirements.txt .
 - The script works in the endless loop (in fact the script can hang 
   after 1000 cycles due to recursion in some cases), so you have to 
   stop it manually. 
-- The end of url that is stored in the script must be written with 
+- The end of URL that is stored in the script must be written with 
   the letters from the English alphabet. 
 - If you use the script for a long time and use Wikipedia resources in 
   this way, think about donation to Wikipedia. 
@@ -32,12 +32,12 @@ python 3.9 - rest in requirements.txt .
 - The file events.log is the text file.
 
 ## Script Summary:
-The script is taking the end of url of Wikipedia (the end of url is 
-stored in the script) and is creating the full url adress of the site 
+The script is taking the end of URL of Wikipedia (the end of URL is 
+stored in the script) and is creating the full URL adress of the site 
 of Wikipedia. Next the script (after the scraping and the processing 
 of the information from the page) is printing and saving in the txt 
 file getWikiLinks_with_logging.txt: in the first line the end of 
-the Wikipedia url, in the second line the title of the page, in 
+the Wikipedia URL, in the second line the title of the page, in 
 the next few lines the beginning of the page body (sometimes they're 
 blank lines/line), the blank line to distinguish the body from 
 the last line (this is necessary because we don't know how many lines 
@@ -48,8 +48,8 @@ the separator. Next the script is taking the next random link from
 the site, is checking if the link has not been downloaded once and is 
 getting the necessary information from the new page. The script works 
 in the loop. All operations are saved in the txt file 
-getWikiLinks_with_logging.txt, except for one. If the url has been 
-checked once, it will not be saved in this txt file (the end of url 
+getWikiLinks_with_logging.txt, except for one. If the URL has been 
+checked once, it will not be saved in this txt file (the end of URL 
 and other information), but the appropriate information will be save 
 and print thanks to the operations of the logger. The logger saves and 
 prints all its occurrences in the form of the information stored in 
