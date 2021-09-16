@@ -56,6 +56,8 @@ prints all its occurrences in the form of the information stored in
 the file events.log . To see what it looks like, please open the file 
 getWikiLinks_with_logging.txt and the events.log file.
 
+<img src="https://github.com/OliverWisn/crawler_logging/blob/master/images/demo_1.jpg" width=1000>
+
 ## Version:
 The basic version of the code has tag 1.0.
 The target code version is 2.0.
