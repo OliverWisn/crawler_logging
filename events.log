@@ -103,3 +103,8 @@
 08/31/2021 01:15:39 PM - Mainstream   - INFO         - This site has already been checked: /wiki/ISSN_(identifier)
 08/31/2021 01:15:40 PM - Mainstream   - INFO         - This site has already been checked: /wiki/MPEG-4_Part_14
 08/31/2021 01:15:44 PM - Mainstream   - INFO         - This site has already been checked: /wiki/Domain_Name_System
+01/28/2022 09:41:39 AM - Mainstream   - DEBUG        - debug message
+01/28/2022 09:41:39 AM - Mainstream   - INFO         - info message
+01/28/2022 09:41:39 AM - Mainstream   - WARNING      - warn message
+01/28/2022 09:41:39 AM - Mainstream   - ERROR        - error message
+01/28/2022 09:41:39 AM - Mainstream   - CRITICAL     - critical message
